@@ -1,0 +1,52 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: data-sharing
+  
+  # H2 Database Configuration
+  datasource:
+    url: jdbc:h2:mem:datasharing
+    username: sa
+    password: 
+    driverClassName: org.h2.Driver
+  
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+# Custom Application Properties
+app:
+  # Excel Configuration
+  excel:
+    input-directory: ${user.home}/data-sharing/excel/input
+    processed-directory: ${user.home}/data-sharing/excel/processed
+    error-directory: ${user.home}/data-sharing/excel/error
+    polling-interval: 60000  # 1 minute in milliseconds
+  
+  # SAP Configuration
+  sap:
+    destination: DEV
+    ashost: your-sap-host.example.com
+    sysnr: "00"
+    client: "100"
+    user: sapuser
+    passwd: sappassword
+    lang: EN
+    pool_capacity: 3
+    peak_limit: 10
+
+# Logging Configuration
+logging:
+  level:
+    root: INFO
+    com.example.datasharing: DEBUG
+    org.springframework: INFO
